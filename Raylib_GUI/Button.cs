@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using System.Numerics;
 
 namespace Raylib_GUI
 {
@@ -25,7 +26,7 @@ namespace Raylib_GUI
             {
                 Raylib.DrawRectangle(x, y, width, height, highLightColor);
 
-                if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
                 {
                     Raylib.DrawRectangle(x, y, width, height, pressedColor);
                     Raylib.DrawRectangleLinesEx(new Rectangle(x, y, width, height), 2, Color.WHITE);
@@ -38,11 +39,29 @@ namespace Raylib_GUI
             }
         }
 
-        void DrawCircleButton(int _x, int _y, int _radius)
+        public void DrawCircleButton(int _x, int _y, int _radius)
         {
             x = _x;
             y = _y;
             radius = _radius;
+
+            Raylib.DrawCircle(x, y, radius, baseColor);
+
+            if (Vector2.Distance(Raylib.GetMousePosition(), new Vector2(x, y)) <= radius)
+            {
+                Raylib.DrawCircle(x, y, radius, highLightColor);
+
+                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                {
+                    Raylib.DrawCircle(x, y, radius, pressedColor);
+                    Raylib.DrawCircleLines(x, y, radius, Color.WHITE);
+
+                    if (pressed != null)
+                    {
+                        pressed();
+                    }
+                }
+            }
         }
     }
 }

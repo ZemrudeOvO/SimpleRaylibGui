@@ -8,6 +8,7 @@ namespace GUI
         public static void Main()
         {
             Button button = new Button();
+            button.pressed += () => Console.WriteLine("pressed");
 
             Raylib.InitWindow(640, 360, "button");
             Raylib.SetTargetFPS(50);
@@ -17,7 +18,8 @@ namespace GUI
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLANK);
 
-                button.DrawRectangleButton(320, 180, 100, 50);
+                button.DrawRectangleButton(50, 50, 100, 50);
+                button.DrawCircleButton(320, 180, 25);
 
                 Raylib.EndDrawing();
 	        }
