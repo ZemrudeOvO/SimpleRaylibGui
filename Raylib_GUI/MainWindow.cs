@@ -7,8 +7,11 @@ namespace GUI
     { 
         public static void Main()
         {
-            Button button = new Button();
-            button.pressed += () => Console.WriteLine("pressed");
+            RectangleButton rectangleButton = new RectangleButton();
+            CircleButton circleButton = new CircleButton();
+
+            rectangleButton.pressed += () => Console.WriteLine("rect");
+            circleButton.pressed += () => Console.WriteLine("circle");
 
             Raylib.InitWindow(640, 360, "button");
             Raylib.SetTargetFPS(50);
@@ -18,8 +21,8 @@ namespace GUI
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLANK);
 
-                button.DrawRectangleButton(50, 50, 100, 50);
-                button.DrawCircleButton(320, 180, 25);
+                rectangleButton.DrawRectangleButton(50, 50, 100, 50);
+                circleButton.DrawCircleButton(320, 180, 25);
 
                 Raylib.EndDrawing();
 	        }

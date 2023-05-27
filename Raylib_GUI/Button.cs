@@ -3,15 +3,19 @@ using System.Numerics;
 
 namespace Raylib_GUI
 {
-    public class Button
+    public abstract class BaseButton
     {
+        internal Color baseColor = Color.DARKGRAY;
+        internal Color highLightColor = Color.GRAY;
+        internal Color pressedColor = Color.LIGHTGRAY;
+    }
+
+    public class RectangleButton : BaseButton
+    {
+        int x, y, width, height;
+
         public delegate void Pressed();
         public event Pressed? pressed;
-
-        int x, y, width, height,radius;
-        Color baseColor = Color.DARKGRAY;
-        Color highLightColor = Color.GRAY;
-        Color pressedColor = Color.LIGHTGRAY;
 
         public void DrawRectangleButton(int _x, int _y, int _width, int _height)
         {
@@ -26,11 +30,14 @@ namespace Raylib_GUI
             {
                 Raylib.DrawRectangle(x, y, width, height, highLightColor);
 
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
                 {
                     Raylib.DrawRectangle(x, y, width, height, pressedColor);
                     Raylib.DrawRectangleLinesEx(new Rectangle(x, y, width, height), 2, Color.WHITE);
+                }
 
+                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                {
                     if (pressed != null)
                     {
                         pressed();
@@ -38,6 +45,13 @@ namespace Raylib_GUI
                 }
             }
         }
+    }
+    public class CircleButton : BaseButton
+    {
+        int x, y, radius;
+
+        public delegate void Pressed();
+        public event Pressed? pressed;
 
         public void DrawCircleButton(int _x, int _y, int _radius)
         {
@@ -51,11 +65,14 @@ namespace Raylib_GUI
             {
                 Raylib.DrawCircle(x, y, radius, highLightColor);
 
-                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
-                {
+                if (Raylib.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
+                { 
                     Raylib.DrawCircle(x, y, radius, pressedColor);
                     Raylib.DrawCircleLines(x, y, radius, Color.WHITE);
+		        }
 
+                if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT))
+                {
                     if (pressed != null)
                     {
                         pressed();
