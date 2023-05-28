@@ -5,9 +5,9 @@ namespace Raylib_GUI
 {
     public abstract class BaseButton
     {
-        internal Color baseColor = Color.DARKGRAY;
-        internal Color highLightColor = Color.GRAY;
-        internal Color pressedColor = Color.LIGHTGRAY;
+        protected Color baseColor = Color.DARKGRAY;
+        protected Color highLightColor = Color.GRAY;
+        protected Color pressedColor = Color.LIGHTGRAY;
     }
 
     public class RectangleButton : BaseButton
